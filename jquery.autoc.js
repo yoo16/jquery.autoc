@@ -5,12 +5,18 @@
  * @copyright Yohei Yoshikawa 2021
  * @GitHub https://github.com/yoo16/jquery.autoc
  */
-(function ($) {
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        module.exports = factory(require("jquery"), window, document);
+    } else {
+        factory(jQuery, window, document);
+    }
+}(function ($, window, document, undefined) {
     $.fn.aoutoc = (params) => {
         if (!params) params = {};
         var methods = {
             init: function (params) {
-                if (params.id) targetId = this.idSelector(params.id);
+                if (params.id) targetId = methods.idSelector(params.id);
                 if (params.start) start = params.start;
                 if (params.end) end = params.end;
 
@@ -122,4 +128,4 @@
         methods.init(params);
         methods.render();
     }
-})(jQuery);
+}));

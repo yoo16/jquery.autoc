@@ -1,0 +1,29 @@
+{
+    "name": "jquery-autoc-js",
+    "version": "1.0.0",
+    "description": "HTML toc jQuery plugin.",
+    "main": "./dist/bundle.js",
+    "style": [
+        "./dist/bundle.css"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "jquery": "^3.5.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yoo16/jquery.autoc.git"
+    },
+    "keywords": [
+        "jquery-plugin",
+        "toc"
+    ],
+    "author": "Yohei Yoshikawa",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/yoo16/jquery.autoc/issues"
+    },
+    "homepage": "https://github.com/yoo16/jquery.autoc#readme"
+}
