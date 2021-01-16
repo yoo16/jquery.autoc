@@ -2,10 +2,10 @@
     "name": "jquery-autoc-js",
     "version": "1.0.2",
     "description": "HTML toc jQuery plugin.",
-    "main": "dist/jquery.autoc.js",
+    "main": "build/jquery.autoc.js",
     "scripts": {
         "test": "npm run lint",
-        "lint": "eslint src/*.js",
+        "lint": "eslint *.js",
         "develop": "webpack --mode development",
         "build": "webpack --mode production"
     },
