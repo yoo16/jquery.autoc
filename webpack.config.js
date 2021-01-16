@@ -1,10 +1,10 @@
 const path = require('path');
 
 const webpackConfig = {
-    'context': __dirname + '/src',
+    'context': __dirname,
     'entry': './index.js',
     'output': {
-        'path': path.resolve(__dirname, 'dist'),
+        'path': path.resolve(__dirname, 'build'),
         'filename': 'jquery.autoc.min.js',
         'library': '',
         'libraryTarget': 'umd'

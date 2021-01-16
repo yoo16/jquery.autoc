@@ -11,7 +11,7 @@
     } else {
         factory(jQuery, window, document);
     }
-}(function ($, window, document, undefined) {
+}(function ($) {
     $.fn.aoutoc = (params) => {
         if (!params) params = {};
         var methods = {
