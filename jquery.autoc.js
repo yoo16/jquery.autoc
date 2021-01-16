@@ -1,6 +1,7 @@
 /**
  * @title jquery.autoc.js
  * @file This is auto toc jQeury script.
+ * @version 0.0.1
  * @copyright Yohei Yoshikawa 2021
  * @GitHub https://github.com/yoo16/jquery.autoc
  */
@@ -92,7 +93,6 @@ const mokuji = (params) => {
                         $(this).prop('id', idName);
 
                         var aElement = $(htmlTag('a')).attr('href', '#' + idName).html($(this).html());
-                        console.log(a.class);
                         aElement.addClass(a.class).css(a.css);
                         var liElement = $(htmlTag('li')).addClass(li.class);
                         if (params.li) {
@@ -100,7 +100,6 @@ const mokuji = (params) => {
                             if (params.li.class) liElement.addClass(params.li.class);
                         }
                         if (params.level && (liLevel = params.level[hLevel])) {
-                            console.log(liLevel.class);
                             if (liLevel.class) liElement.addClass(liLevel.class);
                         }
                         liElement.css(level[hLevel].css).append(aElement);
