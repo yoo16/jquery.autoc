@@ -6,87 +6,59 @@
  * @GitHub https://github.com/yoo16/jquery.autoc
  */
 (function (factory) {
-    if (typeof module === "object" && typeof module.exports === "object") {
-        module.exports = factory(require("jquery"));
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        module.exports = factory(require('jquery'), window, document);
     } else {
-        factory(jQuery);
+        factory(jQuery, window, document);
     }
-}(function ($) {
-    $.fn.aoutoc = (params) => {
-        if (!params) params = {};
-        var targetId = '#mokuji';
-        var start = 2;
-        var end = 3;
-        var level = {
-            1: { css: { paddingLeft: '0px' }, },
-            2: { css: { paddingLeft: '20px' }, },
-            3: { css: { paddingLeft: '40px' }, },
-            4: { css: { paddingLeft: '60px' }, },
-            5: { css: { paddingLeft: '80px' }, },
-        };
-        var base = {
-            class: ['mx-auto'],
-            tag: 'div',
-        };
-        var title = {
-            label: 'Index',
-            tag: 'h2',
-            class: ['h2']
-        };
-        var a = {
-            class: {},
-            css: {},
-        }
-        var ul = { class: ['list-group'] };
-        var li = { class: ['list-group-item'] };
+}(function ($, window, document, undefined) {
+    $.fn.autoc = function (options) {
+        var params = $.extend({
+            targetId: '#toc',
+            start: 2,
+            end: 3,
+            level: {
+                1: { css: { paddingLeft: '0px' }, },
+                2: { css: { paddingLeft: '20px' }, },
+                3: { css: { paddingLeft: '40px' }, },
+                4: { css: { paddingLeft: '60px' }, },
+                5: { css: { paddingLeft: '80px' }, },
+            },
+            base: {
+                class: ['mx-auto'],
+                tag: 'div',
+            },
+            title: {
+                label: 'Index',
+                tag: 'h2',
+                class: ['h2']
+            },
+            a: {
+                class: [],
+                css: {},
+            },
+            ul: { class: ['list-group'] },
+            li: { class: ['list-group-item'] },
+        }, options);
+        console.log(params);
         var methods = {
             init: function (params) {
-                if (params.id) targetId = methods.idSelector(params.id);
-                if (params.start) start = params.start;
-                if (params.end) end = params.end;
-
-                if (params.a) {
-                    if (params.a.class) a.class = params.a.class;
-                    if (params.a.css) a.css = params.a.css;
-                }
-                if (params.base) {
-                    if (params.base.class) base.class = params.base.class;
-                }
-                if (params.ul) {
-                    if (params.ul.class) ul.class = params.ul.class;
-                }
-                if (params.li) {
-                    if (params.li.class) li.class = params.li.class;
-                }
-                if (params.level) {
-                    for (i = 1; i <= 5; i++) {
-                        if (params.level[i]) {
-                            level[i] = params.level[i];
-                        }
-                    }
-                }
-                console.log(level);
-                if (params.title) {
-                    if (params.title.label) title.label = params.title.label;
-                    if (params.title.tag) title.tag = tag.element(params.title.tag);
-                    if (params.title.class) title.class = params.title.class;
-                }
             },
             renderToc: function () {
                 var ulElement = $(methods.htmlTag('ul'));
                 var i = 0;
 
                 //ul element
-                ulElement.addClass(ul.class);
+                ulElement.addClass(params.ul.class);
 
                 //base element
                 $(baseElement).append(ulElement);
-                baseElement.addClass(base.class);
+                baseElement.addClass(params.base.class);
 
                 //target
-                $(targetId).append(baseElement);
+                $(params.targetId).append(baseElement);
 
-                var reg = new RegExp('h([' + start + '-' + end + '])', 'i');
+                var reg = new RegExp('h([' + params.start + '-' + params.end + '])', 'i');
                 $('*').each(function () {
                     var hMatch = $(this).get(0).tagName.match(reg);
                     if (hMatch) {
@@ -98,13 +70,12 @@
                             $(this).prop('id', idName);
 
                             var aElement = $(methods.htmlTag('a')).attr('href', '#' + idName).html($(this).html());
-                            aElement.addClass(a.class).css(a.css);
-                            var liElement = $(methods.htmlTag('li')).addClass(li.class);
-                            liElement.addClass(li.class);
+                            if (params.a.class) aElement.addClass(params.a.class)
+                            if (params.a.css) aElement.css(params.a.css);
+                            var liElement = $(methods.htmlTag('li')).addClass(params.li.class);
+                            liElement.addClass(params.li.class);
 
-                            console.log(hLevel);
-                            console.log(level[hLevel]);
-                            if (liLevel = level[hLevel]) {
+                            if (liLevel = params.level[hLevel]) {
                                 if (liLevel.class) liElement.addClass(liLevel.class);
                                 if (liLevel.css) liElement.css(liLevel.css)
                             }
@@ -115,9 +86,11 @@
                 });
             },
             renderTitle: function () {
-                if (title.tag) title.tag = title.tag;
-                var titleTag = methods.htmlTag(title.tag);
-                var titleElement = $(titleTag).addClass(title.class).text(title.label);
+                if (!params.title.tag) params.title.tag = 'h2';
+                if (!params.title.class) params.title.class = params.title.tag;
+                var titleTag = methods.htmlTag(params.title.tag);
+                var titleElement = $(titleTag).html(params.title.label);
+                if (params.title.class) titleElement.addClass(params.title.class);
                 $(baseElement).prepend(titleElement);
             },
             render: function () {
@@ -131,7 +104,7 @@
                 return '#' + name;
             },
         }
-        var baseElement = $(methods.htmlTag(base.tag));
+        var baseElement = $(methods.htmlTag(params.base.tag));
 
         methods.init(params);
         methods.render();

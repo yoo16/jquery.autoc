@@ -3,10 +3,8 @@
 - jQuery ^3.5.0
 - Bootstrap 4.x
 
-## npm install
-```bash
-$ npm install jquery-autoc-js
-```
+## Download jquery.autoc.js
+https://github.com/yoo16/jquery.autoc/tree/main/build
 
 ## CDN
 ```
