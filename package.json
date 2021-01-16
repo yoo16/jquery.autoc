@@ -6,8 +6,8 @@
     "scripts": {
         "test": "npm run lint",
         "lint": "eslint *.js",
-        "develop": "webpack --mode development",
-        "build": "webpack --mode production"
+        "develop": "webpack --mode development --config webpack.config.js",
+        "build": "webpack --mode production --config webpack.config.js"
     },
     "dependencies": {
         "jquery": "^3.3.1"

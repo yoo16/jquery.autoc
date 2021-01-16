@@ -7,13 +7,38 @@
  */
 (function (factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
-        module.exports = factory(require("jquery"), window, document);
+        module.exports = factory(require("jquery"));
     } else {
-        factory(jQuery, window, document);
+        factory(jQuery);
     }
 }(function ($) {
     $.fn.aoutoc = (params) => {
         if (!params) params = {};
+        var targetId = '#mokuji';
+        var start = 2;
+        var end = 3;
+        var level = {
+            1: { css: { paddingLeft: '0px' }, },
+            2: { css: { paddingLeft: '20px' }, },
+            3: { css: { paddingLeft: '40px' }, },
+            4: { css: { paddingLeft: '60px' }, },
+            5: { css: { paddingLeft: '80px' }, },
+        };
+        var base = {
+            class: ['mx-auto'],
+            tag: 'div',
+        };
+        var title = {
+            label: 'Index',
+            tag: 'h2',
+            class: ['h2']
+        };
+        var a = {
+            class: {},
+            css: {},
+        }
+        var ul = { class: ['list-group'] };
+        var li = { class: ['list-group-item'] };
         var methods = {
             init: function (params) {
                 if (params.id) targetId = methods.idSelector(params.id);
@@ -34,8 +59,13 @@
                     if (params.li.class) li.class = params.li.class;
                 }
                 if (params.level) {
-                    level = params.level;
+                    for (i = 1; i <= 5; i++) {
+                        if (params.level[i]) {
+                            level[i] = params.level[i];
+                        }
+                    }
                 }
+                console.log(level);
                 if (params.title) {
                     if (params.title.label) title.label = params.title.label;
                     if (params.title.tag) title.tag = tag.element(params.title.tag);
@@ -72,10 +102,13 @@
                             var liElement = $(methods.htmlTag('li')).addClass(li.class);
                             liElement.addClass(li.class);
 
+                            console.log(hLevel);
+                            console.log(level[hLevel]);
                             if (liLevel = level[hLevel]) {
                                 if (liLevel.class) liElement.addClass(liLevel.class);
+                                if (liLevel.css) liElement.css(liLevel.css)
                             }
-                            liElement.css(level[hLevel].css).append(aElement);
+                            liElement.append(aElement);
                             $(ulElement).append(liElement);
                         }
                     }
@@ -98,31 +131,6 @@
                 return '#' + name;
             },
         }
-        var targetId = '#mokuji';
-        var start = 2;
-        var end = 3;
-        var level = {
-            1: { css: { paddingLeft: '0px' }, },
-            2: { css: { paddingLeft: '20px' }, },
-            3: { css: { paddingLeft: '40px' }, },
-            4: { css: { paddingLeft: '60px' }, },
-            5: { css: { paddingLeft: '80px' }, },
-        };
-        var base = {
-            class: ['mx-auto'],
-            tag: 'div',
-        };
-        var title = {
-            label: 'Index',
-            tag: 'h2',
-            class: ['h2']
-        };
-        var a = {
-            class: {},
-            css: {},
-        }
-        var ul = { class: ['list-group'] };
-        var li = { class: ['list-group-item'] };
         var baseElement = $(methods.htmlTag(base.tag));
 
         methods.init(params);
